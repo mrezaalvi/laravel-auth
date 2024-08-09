@@ -6,10 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
    Route::get('/user', function (Request $request) {
         return $request->user();
@@ -17,9 +13,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
    Route::post('logout', function(Request $request){
         $request->user()->currentAccessToken()->delete();
-        return response()->json([
-            'message' => 'Logout Success',
-        ]);
+        // return response()->json([
+        //     'message' => 'Logout Success',
+        // ]);
+
+        return response()->noContent();
    });
 });
 Route::post('login', function(Request $request){
